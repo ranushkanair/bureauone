@@ -574,6 +574,8 @@ footer {
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   nav { padding: 0 24px; }
+  .nav-links { gap: 20px; }
+  .nav-links .cta-mobile-hide { display: none; }
   .hero { padding: 0 24px; }
   .scroll-hint { right: 24px; }
   .section-about { padding: 80px 24px; grid-template-columns: 1fr; gap: 48px; }
@@ -600,7 +602,7 @@ footer {
   </a>
   <ul class="nav-links">
     <li><a onclick="showPage('services')">Services</a></li>
-    <li><a onclick="showPage('contact')" class="cta">Contact Us</a></li>
+    <li class="cta-mobile-hide"><a onclick="showPage('contact')" class="cta">Contact Us</a></li>
   </ul>
 </nav>
 
