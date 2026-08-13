@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bureau One</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --burgundy: #5C1A1A;
+  --burgundy-deep: #3A1010;
+  --burgundy-mid: #4A1515;
+  --lilac: #CBA8CB;
+  --lilac-dim: rgba(203,168,203,0.45);
+  --lilac-faint: rgba(203,168,203,0.12);
+  --lilac-xfaint: rgba(203,168,203,0.06);
+  --chartreuse: #C8D400;
+  --chartreuse-dim: rgba(200,212,0,0.35);
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background: var(--burgundy);
+  color: var(--lilac);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 52px;
+  height: 72px;
+  border-bottom: 0.5px solid var(--lilac-faint);
+  background: var(--burgundy);
+}
+
+.nav-logo {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: flex-start;
+  text-decoration: none;
+  cursor: pointer;
+}
+.nav-logo-text {
+  font-weight: 100;
+  font-size: 15px;
+  letter-spacing: 0.45em;
+  color: var(--lilac);
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1;
+}
+.nav-logo-rule {
+  width: 60%;
+  height: 0.5px;
+  background: var(--lilac);
+  opacity: 0.55;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  list-style: none;
+}
+.nav-links a {
+  font-weight: 200;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--lilac);
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+.nav-links a:hover { opacity: 1; }
+.nav-links a.cta {
+  opacity: 1;
+  color: var(--chartreuse);
+  border-bottom: 0.5px solid var(--chartreuse-dim);
+  padding-bottom: 3px;
+}
+.nav-links a.cta:hover { border-color: var(--chartreuse); }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── HERO ── */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 52px;
+  position: relative;
+  border-bottom: 0.5px solid var(--lilac-faint);
+}
+
+.hero-wordmark {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+.hero-wordmark-text {
+  font-weight: 100;
+  font-size: clamp(52px, 8vw, 108px);
+  letter-spacing: 0.18em;
+  color: var(--lilac);
+  text-transform: uppercase;
+  line-height: 1;
+}
+.hero-wordmark-rule {
+  width: 60%;
+  height: 0.5px;
+  background: var(--lilac);
+  opacity: 0.4;
+}
+
+.hero-agency {
+  font-weight: 100;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--lilac);
+  opacity: 0.5;
+  margin-bottom: 14px;
+}
+
+.hero-pillars {
+  font-weight: 200;
+  font-size: clamp(11px, 1.2vw, 14px);
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--chartreuse);
+  opacity: 0.85;
+  margin-bottom: 52px;
+}
+
+.hero-cta {
+  display: inline-block;
+  font-weight: 200;
+  font-size: 10px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--chartreuse);
+  text-decoration: none;
+  border: 0.5px solid var(--chartreuse-dim);
+  padding: 14px 32px;
+  cursor: pointer;
+  background: none;
+  font-family: 'Raleway', sans-serif;
+  transition: border-color 0.3s, background 0.3s;
+}
+.hero-cta:hover {
+  border-color: var(--chartreuse);
+  background: rgba(200,212,0,0.05);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  right: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.scroll-hint span {
+  font-weight: 100;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  opacity: 0.35;
+  writing-mode: vertical-rl;
+}
+.scroll-hint-line {
+  width: 0.5px;
+  height: 60px;
+  background: var(--lilac);
+  opacity: 0.25;
+}
+
+/* ── STUDIO / ABOUT ── */
+.section-about {
+  padding: 120px 52px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  border-bottom: 0.5px solid var(--lilac-faint);
+  align-items: start;
+}
+
+.about-heading {
+  font-weight: 100;
+  font-size: clamp(36px, 5vw, 68px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  color: var(--lilac);
+}
+
+.about-body p {
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  line-height: 1.85;
+  opacity: 0.7;
+  margin-bottom: 28px;
+}
+.about-body p:last-of-type { margin-bottom: 48px; }
+
+.about-services {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+}
+.about-service {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 0.5px solid var(--lilac-faint);
+}
+.about-service-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--chartreuse);
+  flex-shrink: 0;
+}
+.about-service-name {
+  font-weight: 200;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+/* ── THINKING ── */
+.section-thinking {
+  padding: 120px 52px;
+  border-bottom: 0.5px solid var(--lilac-faint);
+}
+
+.section-label {
+  font-weight: 100;
+  font-size: 9px;
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: 60px;
+}
+
+.thinking-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--lilac-faint);
+}
+
+.thinking-item {
+  background: var(--burgundy);
+  padding: 44px 40px;
+  transition: background 0.3s;
+  cursor: default;
+}
+.thinking-item:hover { background: var(--burgundy-mid); }
+
+.thinking-item-cat {
+  font-weight: 100;
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--chartreuse);
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+.thinking-item-title {
+  font-weight: 200;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  line-height: 1.55;
+  color: var(--lilac);
+  margin-bottom: 20px;
+}
+.thinking-item-date {
+  font-weight: 100;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.3;
+}
+
+/* ── CONTACT CTA (homepage) ── */
+.section-contact-home {
+  padding: 140px 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 0.5px solid var(--lilac-faint);
+}
+
+.contact-overline {
+  font-weight: 100;
+  font-size: 9px;
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  opacity: 0.35;
+  margin-bottom: 44px;
+}
+.contact-heading {
+  font-weight: 100;
+  font-size: clamp(32px, 5vw, 64px);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--lilac);
+  margin-bottom: 52px;
+}
+.contact-heading em {
+  font-style: normal;
+  color: var(--chartreuse);
+}
+.contact-cta-btn {
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  font-size: 10px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--chartreuse);
+  background: none;
+  border: 0.5px solid var(--chartreuse-dim);
+  padding: 16px 40px;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+}
+.contact-cta-btn:hover {
+  border-color: var(--chartreuse);
+  background: rgba(200,212,0,0.05);
+}
+
+/* ── CONTACT FORM PAGE (EVNA-style) ── */
+.contact-page-wrap {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+}
+
+.contact-sidebar {
+  padding: 120px 40px 60px 52px;
+  border-right: 0.5px solid var(--lilac-faint);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.contact-sidebar h2 {
+  font-weight: 100;
+  font-size: 32px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--lilac);
+}
+
+.contact-sidebar-note {
+  font-weight: 200;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  line-height: 1.9;
+  opacity: 0.5;
+}
+
+.contact-main {
+  padding: 120px 60px 80px 60px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 40px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 0.5px solid var(--lilac-faint);
+  padding: 22px 0;
+  gap: 10px;
+}
+
+label {
+  font-weight: 100;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--lilac);
+  opacity: 0.4;
+}
+
+input, textarea {
+  background: none;
+  border: none;
+  outline: none;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--lilac);
+  padding: 0;
+  resize: none;
+}
+input::placeholder, textarea::placeholder {
+  opacity: 0.2;
+  color: var(--lilac);
+}
+
+.form-radio-group {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.form-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 200;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--lilac);
+  opacity: 0.7;
+  cursor: pointer;
+  text-transform: lowercase;
+}
+.form-radio-label input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border: 0.5px solid var(--lilac-dim);
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.form-radio-label input[type="radio"]:checked {
+  background: var(--chartreuse);
+  border-color: var(--chartreuse);
+}
+
+.form-submit {
+  margin-top: 44px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  font-size: 10px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--chartreuse);
+  background: none;
+  border: 0.5px solid var(--chartreuse-dim);
+  padding: 16px 48px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: border-color 0.3s, background 0.3s;
+}
+.form-submit:hover {
+  border-color: var(--chartreuse);
+  background: rgba(200,212,0,0.05);
+}
+
+/* ── SERVICES PAGE ── */
+.section-services {
+  padding: 140px 52px 100px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--lilac-faint);
+}
+
+.service-card {
+  background: var(--burgundy);
+  padding: 48px 44px;
+  transition: background 0.3s;
+}
+.service-card:hover { background: var(--burgundy-mid); }
+
+.service-card-title {
+  font-weight: 200;
+  font-size: 11px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--chartreuse);
+  margin-bottom: 16px;
+}
+.service-card-desc {
+  font-weight: 100;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  line-height: 1.75;
+  color: var(--lilac);
+  opacity: 0.65;
+  margin-bottom: 24px;
+}
+.service-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.service-list li {
+  font-weight: 100;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--lilac);
+  opacity: 0.75;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.service-list li::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--chartreuse);
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 36px 52px;
+  border-top: 0.5px solid var(--lilac-faint);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-copy, .footer-loc {
+  font-weight: 100;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.25;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 24px; }
+  .hero { padding: 0 24px; }
+  .scroll-hint { right: 24px; }
+  .section-about { padding: 80px 24px; grid-template-columns: 1fr; gap: 48px; }
+  .section-thinking { padding: 80px 24px; }
+  .thinking-grid { grid-template-columns: 1fr; }
+  .section-contact-home { padding: 100px 24px; }
+  .contact-page-wrap { grid-template-columns: 1fr; }
+  .contact-sidebar { padding: 100px 24px 40px; border-right: none; border-bottom: 0.5px solid var(--lilac-faint); }
+  .contact-main { padding: 40px 24px 60px; }
+  .form-row { grid-template-columns: 1fr; }
+  .section-services { padding: 100px 24px 60px; }
+  .services-grid { grid-template-columns: 1fr; }
+  footer { padding: 28px 24px; flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">
+    <span class="nav-logo-text">Bureau One</span>
+    <div class="nav-logo-rule"></div>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('services')">Services</a></li>
+    <li><a onclick="showPage('contact')" class="cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════ HOME ═══════════════ -->
+<div id="page-home" class="page active">
+
+  <section class="hero">
+    <div class="hero-wordmark">
+      <span class="hero-wordmark-text">Bureau One</span>
+      <div class="hero-wordmark-rule"></div>
+    </div>
+    <div class="hero-agency">Creative Marketing Agency</div>
+    <div class="hero-pillars">Brand. Creative. Culture.</div>
+    <button class="hero-cta" onclick="showPage('contact')">Contact Us</button>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-hint-line"></div>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section class="section-about">
+    <div class="about-heading">A bureau<br>for the<br>zeitgeist.</div>
+    <div>
+      <div class="about-body">
+        <p>Bureau One is powered by Ranushka Nair, a commercially driven, creatively led Global Marketing Leader with 15+ years' experience building and scaling premium wellness, beauty, and lifestyle brands. With foundations in luxury fashion PR at Vivienne Westwood, Tom Ford and Christian Louboutin, evolving into deep marketing expertise at Third Space, Urban Decay and FACEGYM.</p>
+        <p>We help you move the needle and get in front of the right audience at the right time. We do the work that matters: sharp strategy, distinctive creative, and marketing that earns its place in people's lives.</p>
+      </div>
+      <div class="about-services">
+        <div class="about-service"><div class="about-service-dot"></div><span class="about-service-name">Brand Strategy</span></div>
+        <div class="about-service"><div class="about-service-dot"></div><span class="about-service-name">Campaign Direction</span></div>
+        <div class="about-service"><div class="about-service-dot"></div><span class="about-service-name">Social &amp; Creative</span></div>
+        <div class="about-service"><div class="about-service-dot"></div><span class="about-service-name">Paid Media</span></div>
+        <div class="about-service"><div class="about-service-dot"></div><span class="about-service-name">Partnerships &amp; Events</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="section-contact-home">
+    <div class="contact-overline">New Business</div>
+    <div class="contact-heading">Let's make<br>something <em>worth<br>talking about.</em></div>
+    <button class="contact-cta-btn" onclick="showPage('contact')">Contact Us</button>
+  </section>
+
+  <footer>
+    <span class="footer-copy">© 2026 Bureau One</span>
+    <span class="footer-loc">London</span>
+  </footer>
+</div>
+
+<!-- ═══════════════ SERVICES ═══════════════ -->
+<div id="page-services" class="page">
+  <section class="section-services">
+    <div class="section-label">Services</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-card-title">Marketing &amp; Social Strategy</div>
+        <div class="service-card-desc">Strategic storytelling for a shifting digital landscape.</div>
+        <ul class="service-list">
+          <li>360° Marketing Strategy</li>
+          <li>Social Media Audit &amp; Consultation</li>
+          <li>Social Media Management</li>
+          <li>Brand Partnerships</li>
+          <li>Email Marketing Management</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-card-title">Activations</div>
+        <div class="service-card-desc">Breaking boundaries to create resonant brand moments and forge aligned partnerships.</div>
+        <ul class="service-list">
+          <li>Event Production</li>
+          <li>Location Scouting</li>
+          <li>Activation Strategy</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-card-title">Branding &amp; Identity</div>
+        <div class="service-card-desc">Brand worlds built with nuance and adaptability, shaped with intention, attuned to evolution.</div>
+        <ul class="service-list">
+          <li>Brand Analysis &amp; Audit</li>
+          <li>Asset Rollout Strategy</li>
+          <li>Graphic Design</li>
+          <li>Brand Identity &amp; Evolution</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-card-title">Creative Direction</div>
+        <div class="service-card-desc">Crafting considered visual languages that reflect the soul of a brand.</div>
+        <ul class="service-list">
+          <li>Idea Generation &amp; Tone of Voice</li>
+          <li>Mood &amp; Visual Narrative</li>
+          <li>Creative Consultation</li>
+          <li>Product Photography</li>
+          <li>Lifestyle Videography</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <span class="footer-copy">© 2026 Bureau One</span>
+    <span class="footer-loc">London</span>
+  </footer>
+</div>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<div id="page-contact" class="page">
+  <div class="contact-page-wrap">
+
+    <div class="contact-sidebar">
+      <h2>Contact<br>Us</h2>
+      <p class="contact-sidebar-note">Tell us about your brand and what you're looking to achieve. We'll be in touch shortly.</p>
+    </div>
+
+    <div class="contact-main">
+      <form class="contact-form" onsubmit="return false;">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>First Name</label>
+            <input type="text" placeholder="—">
+          </div>
+          <div class="form-field">
+            <label>Last Name</label>
+            <input type="text" placeholder="—">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Email</label>
+            <input type="email" placeholder="—">
+          </div>
+          <div class="form-field">
+            <label>Company Name</label>
+            <input type="text" placeholder="—">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Link to website / socials</label>
+          <input type="url" placeholder="—">
+        </div>
+
+        <div class="form-field">
+          <label>Have you worked with a marketing agency before?</label>
+          <div class="form-radio-group">
+            <label class="form-radio-label"><input type="radio" name="agency" value="yes"> yes</label>
+            <label class="form-radio-label"><input type="radio" name="agency" value="no"> no</label>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Monthly Budget</label>
+          <div class="form-radio-group">
+            <label class="form-radio-label"><input type="radio" name="budget" value="1"> £1k – £3k</label>
+            <label class="form-radio-label"><input type="radio" name="budget" value="2"> £3k – £6k</label>
+            <label class="form-radio-label"><input type="radio" name="budget" value="3"> £6k – £10k</label>
+            <label class="form-radio-label"><input type="radio" name="budget" value="4"> £10k+</label>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Tell us about your brand</label>
+          <textarea rows="4" placeholder="—"></textarea>
+        </div>
+
+        <button class="form-submit" type="submit">Send</button>
+
+      </form>
+    </div>
+
+  </div>
+  <footer>
+    <span class="footer-copy">© 2026 Bureau One</span>
+    <span class="footer-loc">London</span>
+  </footer>
+</div>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
